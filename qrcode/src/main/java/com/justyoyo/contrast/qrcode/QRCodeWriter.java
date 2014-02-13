@@ -16,7 +16,6 @@
 
 package com.justyoyo.contrast.qrcode;
 
-import com.justyoyo.contrast.BarcodeFormat;
 import com.justyoyo.contrast.EncodeHintType;
 import com.justyoyo.contrast.Writer;
 import com.justyoyo.contrast.WriterException;
