@@ -23,5 +23,4 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    compile 'com.netflix.rxjava:rxjava-core:0.16.+'
 }

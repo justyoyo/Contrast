@@ -19,10 +19,13 @@ _Coming soon when time allows_
 At the moment you can checkout and include in your project standard gradle way
 
 settings.gradle
+
 ```groovy
 include ':qrcode'
 ```
+
 build.gradle:
+
 ```groovy
 compile project(':qrcode')
 ```
