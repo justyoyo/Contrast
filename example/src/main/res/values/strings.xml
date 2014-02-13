@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Contrast Example</string>
+
+    <string name="qrcode">QRCode</string>
+</resources>

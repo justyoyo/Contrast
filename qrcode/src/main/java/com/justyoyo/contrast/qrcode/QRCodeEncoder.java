@@ -44,7 +44,7 @@ public final class QRCodeEncoder {
 
     public QRCodeEncoder(String data, int dimension) {
         this.dimension = dimension;
-        encoded = encodeContents(data);
+        this.encoded = encodeContents(data);
     }
 
     public String getContents() {
@@ -55,12 +55,6 @@ public final class QRCodeEncoder {
         return displayContents;
     }
 
-
-    private boolean encodeContents(String data) {
-        contents = data;
-        displayContents = data;
-        return contents != null && contents.length() > 0;
-    }
 
     public Bitmap encodeAsBitmap() throws WriterException {
         if (!encoded)
@@ -88,6 +82,12 @@ public final class QRCodeEncoder {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return bitmap;
+    }
+
+    private boolean encodeContents(String data) {
+        contents = data;
+        displayContents = data;
+        return contents != null && contents.length() > 0;
     }
 
     private static String guessAppropriateEncoding(CharSequence contents) {
