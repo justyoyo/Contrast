@@ -52,7 +52,7 @@ public class DemoActivity extends ActionBarActivity {
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
             float size = 192f * getResources().getDisplayMetrics().density;
-            QRCodeEncoder qrCodeEncoder = new QRCodeEncoder("4040111111111111", (int) size);
+            QRCodeEncoder qrCodeEncoder = new QRCodeEncoder("4040111111111111", (int) size, null);
             Bitmap bitmap = null;
             try {
                 bitmap = qrCodeEncoder.encodeAsBitmap();
