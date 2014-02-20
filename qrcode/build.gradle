@@ -1,3 +1,4 @@
+// QRCode build file
 apply plugin: 'android-library'
 
 android {
@@ -24,4 +25,16 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     compile project(':core')
+}
+
+task androidReleaseJar(type: Jar, dependsOn: assembleRelease) {
+    from "$buildDir/classes/release/"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact androidReleaseJar
+        }
+    }
 }
