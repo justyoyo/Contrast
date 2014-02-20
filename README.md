@@ -16,19 +16,13 @@ improvements allow you to include barcodes that _you_ only care about.
 
 _Coming soon when time allows_
 
-At the moment you can checkout and include in your project standard gradle way
+At the moment you can checkout the project and publishToLocal
 
-settings.gradle
 
-```groovy
-include ':qrcode'
-```
-
-build.gradle:
-
-```groovy
-compile project(':qrcode')
-```
+- Clone project;
+- Run `./gradlew publishToMavenLocal`
+- Add `mavenLocal()` to your `repositories` object in your build.gradle
+- Add to your dependency `compile 'com.justyoyo.contrast:qrcode:+'`
 
 
 ### Thanks
