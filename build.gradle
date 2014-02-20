@@ -9,6 +9,11 @@ buildscript {
     }
 }
 
+apply plugin: "maven"
+
+group = "com.justyoyo.contrast"
+version = "0.1.0"
+
 allprojects {
     repositories {
         mavenCentral()
