@@ -40,11 +40,13 @@ public final class QRCodeEncoder {
     private int dimension = Integer.MIN_VALUE;
     private String contents = null;
     private String displayContents = null;
+    private Map<EncodeHintType, Object> hints = null;
     private boolean encoded = false;
 
-    public QRCodeEncoder(String data, int dimension) {
+    public QRCodeEncoder(String data, int dimension, Map<EncodeHintType, Object> hints) {
         this.dimension = dimension;
         this.encoded = encodeContents(data);
+        this.hints = hints;
     }
 
     public String getContents() {
@@ -60,10 +62,15 @@ public final class QRCodeEncoder {
         if (!encoded)
             return null;
 
-        Map<EncodeHintType, Object> hints = null;
-        String encoding = guessAppropriateEncoding(contents);
-        if (encoding != null) {
+        Map<EncodeHintType, Object> hints = this.hints;
+        if (hints == null)
             hints = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
+
+        // Add encoding if it exits
+        String encoding = (String) hints.get(EncodeHintType.CHARACTER_SET);
+        if (encoding == null)
+            encoding = guessAppropriateEncoding(contents);
+        if (encoding != null) {
             hints.put(EncodeHintType.CHARACTER_SET, encoding);
         }
         QRCodeWriter writer = new QRCodeWriter();
