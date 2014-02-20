@@ -27,14 +27,4 @@ dependencies {
     compile project(':core')
 }
 
-task androidReleaseJar(type: Jar, dependsOn: assembleRelease) {
-    from "$buildDir/classes/release/"
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifact androidReleaseJar
-        }
-    }
-}
+apply from: file('../gradle/publish.gradle')
