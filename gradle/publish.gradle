@@ -1,0 +1,11 @@
+task androidReleaseJar(type: Jar, dependsOn: assembleRelease) {
+    from "$buildDir/classes/release/"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact androidReleaseJar
+        }
+    }
+}
