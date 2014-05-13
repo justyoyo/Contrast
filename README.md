@@ -20,9 +20,9 @@ At the moment you can checkout the project and publishToLocal
 
 
 - Clone project;
-- Run `./gradlew publishToMavenLocal`
+- Run `./gradlew publishToMavenLocal` or `./gradlew publish` (for your private Maven repos).
 - Add `mavenLocal()` to your `repositories` object in your build.gradle
-- Add to your dependency `compile 'com.justyoyo.contrast:qrcode:+'`
+- Add to your dependency `compile 'com.justyoyo.contrast:contrast-qrcode:+'`
 
 
 ### Thanks
