@@ -26,7 +26,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    compile project(':core')
+    provided project(':core')
 }
 
-apply from: file('../gradle/publish.gradle')
+apply from: file("${project.rootDir}/gradle/publish.gradle")

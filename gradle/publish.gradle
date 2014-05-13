@@ -1,11 +1,47 @@
-task androidReleaseJar(type: Jar, dependsOn: assembleRelease) {
+apply plugin: 'maven-publish'
+
+/**
+ * We lazy init the assembleRelease task as its added by the android plugin
+ */
+task androidReleaseJar(type: Jar, dependsOn: "assembleRelease") {
     from "$buildDir/classes/release/"
 }
 
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.allJava
+}
+
+task androidJavadocsJar(type: Jar) {
+    classifier = 'javadoc'
+    //basename = artifact_id
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    //basename = artifact_id
+    from android.sourceSets.main.allSource
+}
+
 publishing {
+    repositories {
+        if(project.has("sonatypePrivateUrl")){
+            maven {
+                credentials {
+                    username project.getProperty("sonatypePrivateUsername")
+                    password project.getProperty("sonatypePrivatePassword")
+                }
+                url project.getProperty("sonatypePrivateUrl")
+            }
+        }
+    }
     publications {
         maven(MavenPublication) {
             artifact androidReleaseJar
+            artifact androidJavadocsJar
+            artifact androidSourcesJar
+
+            artifactId "contrast-${project.name}"
         }
     }
 }

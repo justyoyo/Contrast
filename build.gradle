@@ -9,14 +9,15 @@ buildscript {
 }
 
 allprojects {
-    apply plugin: 'maven-publish'
-
     repositories {
         mavenCentral()
     }
 
+}
+
+subprojects {
     group = 'com.justyoyo.contrast'
-    version = '0.1.0'
+    version = '0.1.0-SNAPSHOT'
 }
 
 task wrapper(type: Wrapper) {

@@ -28,4 +28,4 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
-apply from: file('../gradle/publish.gradle')
+apply from: file("${project.rootDir}/gradle/publish.gradle")
