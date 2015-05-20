@@ -17,7 +17,7 @@ allprojects {
 
 subprojects {
     group = 'com.justyoyo.contrast'
-    version = '0.1.0-SNAPSHOT'
+    version = '0.1.1-SNAPSHOT'
 }
 
 task wrapper(type: Wrapper) {
