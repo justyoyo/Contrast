@@ -17,6 +17,7 @@
 package com.justyoyo.contrast.qrcode;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 
 import com.justyoyo.contrast.EncodeHintType;
 import com.justyoyo.contrast.WriterException;
@@ -57,6 +58,15 @@ public final class QRCodeEncoder {
         return displayContents;
     }
 
+    private static int getColor(Map<EncodeHintType, Object> hints, EncodeHintType key, int defaultColor){
+        Object foreground = hints.get(key);
+        if (foreground == null || !(foreground instanceof Integer)){
+            return defaultColor;
+        } else {
+            return ((Integer)foreground);
+        }
+    }
+
 
     public Bitmap encodeAsBitmap() throws WriterException {
         if (!encoded)
@@ -78,11 +88,15 @@ public final class QRCodeEncoder {
         int width = result.getWidth();
         int height = result.getHeight();
         int[] pixels = new int[width * height];
+
+        int foregroundColor = getColor(hints, EncodeHintType.FOREGROUND_COLOR, BLACK);
+        int backgroundColor = getColor(hints, EncodeHintType.BACKGROUND_COLOR, WHITE);
+
         // All are 0, or black, by default
         for (int y = 0; y < height; y++) {
             int offset = y * width;
             for (int x = 0; x < width; x++) {
-                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+                pixels[offset + x] = result.get(x, y) ? foregroundColor : backgroundColor;
             }
         }
 

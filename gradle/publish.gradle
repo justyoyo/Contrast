@@ -8,7 +8,7 @@ task androidReleaseJar(type: Jar, dependsOn: "assembleRelease") {
 }
 
 task androidJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.allJava
+    source = android.sourceSets.main.java.srcDirs
 }
 
 task androidJavadocsJar(type: Jar) {
@@ -20,7 +20,7 @@ task androidJavadocsJar(type: Jar) {
 task androidSourcesJar(type: Jar) {
     classifier = 'sources'
     //basename = artifact_id
-    from android.sourceSets.main.allSource
+    from android.sourceSets.main.java.srcDirs
 }
 
 publishing {
