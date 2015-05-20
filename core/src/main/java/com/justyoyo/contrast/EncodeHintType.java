@@ -83,4 +83,15 @@ public enum EncodeHintType {
    *   a positive number (1, 2, .. 32) specifies a normaol (non-compact) Aztec code
    */
    AZTEC_LAYERS,
+
+  /**
+   * Specifies the foreground colour of the barcode, using {@link android.graphics.Color}
+   */
+   FOREGROUND_COLOR,
+
+  /**
+   * Specifies the background colour of the barcode, using {@link android.graphics.Color}
+   */
+   BACKGROUND_COLOR,
+
 }
