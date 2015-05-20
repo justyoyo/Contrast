@@ -1,8 +1,9 @@
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
 
 /**
  * We lazy init the assembleRelease task as its added by the android plugin
  */
+
 task androidReleaseJar(type: Jar, dependsOn: "assembleRelease") {
     from "$buildDir/classes/release/"
 }
@@ -23,25 +24,19 @@ task androidSourcesJar(type: Jar) {
     from android.sourceSets.main.java.sourceFiles
 }
 
-publishing {
-    repositories {
-        if(project.has("sonatypePrivateUrl")){
-            maven {
-                credentials {
-                    username project.getProperty("sonatypePrivateUsername")
-                    password project.getProperty("sonatypePrivatePassword")
-                }
-                url project.getProperty("sonatypePrivateUrl")
-            }
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        snapshotRepository(url: sonatypePrivateUrl) {
+            authentication(userName: sonatypePrivateUsername,
+                    password: sonatypePrivatePassword)
         }
+       // pom.artifactId = "contrast-${project.name}"
     }
-    publications {
-        maven(MavenPublication) {
-            artifact androidReleaseJar
-            artifact androidJavadocsJar
-            artifact androidSourcesJar
+}
 
-            artifactId "contrast-${project.name}"
-        }
-    }
+artifacts {
+    archives androidReleaseJar
+    archives androidJavadocsJar
+    archives androidSourcesJar
 }
