@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"/>
 
     <TextView
-            android:text="Content: 4040111111111111"
+            android:id="@+id/qrcode_text"
+            tools:text="Content: 4040111111111111"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
