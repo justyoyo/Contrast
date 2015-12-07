@@ -44,6 +44,10 @@ public final class QRCodeEncoder {
     private Map<EncodeHintType, Object> hints = null;
     private boolean encoded = false;
 
+    public QRCodeEncoder(int dimension, Map<EncodeHintType, Object> hints) {
+        this(null, dimension, hints);
+    }
+
     public QRCodeEncoder(String data, int dimension, Map<EncodeHintType, Object> hints) {
         this.dimension = dimension;
         this.encoded = encodeContents(data);
@@ -67,6 +71,13 @@ public final class QRCodeEncoder {
         }
     }
 
+    public void setData(String data) {
+        encoded = encodeContents(data);
+    }
+
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
+    }
 
     public Bitmap encodeAsBitmap() throws WriterException {
         if (!encoded)

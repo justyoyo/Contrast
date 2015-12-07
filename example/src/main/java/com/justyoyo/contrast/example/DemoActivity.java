@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.justyoyo.contrast.WriterException;
 import com.justyoyo.contrast.qrcode.QRCodeEncoder;
@@ -32,6 +33,7 @@ public class DemoActivity extends ActionBarActivity {
     public static class PlaceholderFragment extends Fragment {
 
         private ImageView mQRCodeImage;
+        private TextView mQRCodeText;
 
         public PlaceholderFragment() {
         }
@@ -46,6 +48,7 @@ public class DemoActivity extends ActionBarActivity {
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             mQRCodeImage = (ImageView) view.findViewById(R.id.qrcode_image);
+            mQRCodeText = (TextView) view.findViewById(R.id.qrcode_text);
         }
 
         @Override
@@ -61,6 +64,7 @@ public class DemoActivity extends ActionBarActivity {
             }
             finally {
                 mQRCodeImage.setImageBitmap(bitmap);
+                mQRCodeText.setText(String.format("Content: %s", qrCodeEncoder.getContents()));
             }
         }
     }
