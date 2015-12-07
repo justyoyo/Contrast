@@ -14,13 +14,13 @@ task androidJavadocs(type: Javadoc) {
 
 task androidJavadocsJar(type: Jar) {
     classifier = 'javadoc'
-    //basename = artifact_id
+    basename = artifact_id
     from androidJavadocs.destinationDir
 }
 
 task androidSourcesJar(type: Jar) {
     classifier = 'sources'
-    //basename = artifact_id
+    basename = artifact_id
     from android.sourceSets.main.java.sourceFiles
 }
 
@@ -31,7 +31,7 @@ uploadArchives {
             authentication(userName: sonatypePrivateUsername,
                     password: sonatypePrivatePassword)
         }
-       // pom.artifactId = "contrast-${project.name}"
+        pom.artifactId = "contrast-${project.name}"
     }
 }
 
