@@ -16,6 +16,7 @@
 
 package com.justyoyo.contrast.qrcode;
 
+import com.justyoyo.contrast.BarcodeFormat;
 import com.justyoyo.contrast.EncodeHintType;
 import com.justyoyo.contrast.Writer;
 import com.justyoyo.contrast.WriterException;
@@ -37,16 +38,17 @@ public final class QRCodeWriter implements Writer {
     private static final int QUIET_ZONE_SIZE = 4;
 
     @Override
-    public BitMatrix encode(String contents, int width, int height)
+    public BitMatrix encode(String contents, BarcodeFormat format, int width, int height)
             throws WriterException {
 
-        return encode(contents, width, height, null);
+        return encode(contents, width, height, format, null);
     }
 
     @Override
     public BitMatrix encode(String contents,
                             int width,
                             int height,
+                            BarcodeFormat format,
                             Map<EncodeHintType, ?> hints) throws WriterException {
 
         if (contents.isEmpty()) {

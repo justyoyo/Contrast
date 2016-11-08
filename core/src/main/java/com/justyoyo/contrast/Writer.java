@@ -34,7 +34,7 @@ public interface Writer {
      * @param width    The preferred width in pixels
      * @param height   The preferred height in pixels
      */
-    BitMatrix encode(String contents, int width, int height)
+    BitMatrix encode(String contents, BarcodeFormat format, int width, int height)
             throws WriterException;
 
     /**
@@ -46,6 +46,7 @@ public interface Writer {
     BitMatrix encode(String contents,
                      int width,
                      int height,
+                     BarcodeFormat format,
                      Map<EncodeHintType, ?> hints)
             throws WriterException;
 

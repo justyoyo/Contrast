@@ -1,23 +1,6 @@
-/*
- * Copyright (C) 2008 ZXing authors
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.justyoyo.contrast.qrcode;
+package com.justyoyo.contrast.code128;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
 import com.justyoyo.contrast.BarcodeFormat;
 import com.justyoyo.contrast.EncodeHintType;
@@ -28,13 +11,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * This class does the work of decoding the user's request and extracting all
- * the data to be encoded in a barcode.
- *
- * @author Justin Wetherell (phishman3579@gmail.com )
- * @author dswitkin@google.com (Daniel Switkin)
+ * Created by tiberiugolaes on 08/11/2016.
  */
-public final class QRCodeEncoder {
+
+public final class Code128Encoder {
 
     private static final int WHITE = 0xFFFFFFFF;
     private static final int BLACK = 0xFF000000;
@@ -45,11 +25,11 @@ public final class QRCodeEncoder {
     private Map<EncodeHintType, Object> hints = null;
     private boolean encoded = false;
 
-    public QRCodeEncoder(int dimension, Map<EncodeHintType, Object> hints) {
+    public Code128Encoder(int dimension, Map<EncodeHintType, Object> hints) {
         this(null, dimension, hints);
     }
 
-    public QRCodeEncoder(String data, int dimension, Map<EncodeHintType, Object> hints) {
+    public Code128Encoder(String data, int dimension, Map<EncodeHintType, Object> hints) {
         this.dimension = dimension;
         this.encoded = encodeContents(data);
         this.hints = hints;
@@ -95,8 +75,8 @@ public final class QRCodeEncoder {
         if (encoding != null) {
             hints.put(EncodeHintType.CHARACTER_SET, encoding);
         }
-        QRCodeWriter writer = new QRCodeWriter();
-        BitMatrix result = writer.encode(contents, dimension, dimension, BarcodeFormat.QR_CODE, hints);
+        Code128Writer writer = new Code128Writer();
+        BitMatrix result = writer.encode(contents, dimension, dimension, BarcodeFormat.CODE_128, hints);
         int width = result.getWidth();
         int height = result.getHeight();
         int[] pixels = new int[width * height];
@@ -131,29 +111,5 @@ public final class QRCodeEncoder {
             }
         }
         return null;
-    }
-
-    private static String trim(String s) {
-        if (s == null) {
-            return null;
-        }
-        String result = s.trim();
-        return result.length() == 0 ? null : result;
-    }
-
-    private static String escapeMECARD(String input) {
-        if (input == null || (input.indexOf(':') < 0 && input.indexOf(';') < 0)) {
-            return input;
-        }
-        int length = input.length();
-        StringBuilder result = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            char c = input.charAt(i);
-            if (c == ':' || c == ';') {
-                result.append('\\');
-            }
-            result.append(c);
-        }
-        return result.toString();
     }
 }
