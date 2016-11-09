@@ -27,4 +27,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     compile project(':qrcode')
+    compile project(':pdf417')
+    compile project(':code128')
 }
