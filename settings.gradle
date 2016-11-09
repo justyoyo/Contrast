@@ -1,1 +1,1 @@
-include ':core', ':qrcode', ':example'
+include ':core', ':qrcode', ':example', ':code128', ':pdf417'
