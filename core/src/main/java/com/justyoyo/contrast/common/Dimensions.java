@@ -1,7 +1,7 @@
-package com.justyoyo.contrast.pdf417.encoder;
+package com.justyoyo.contrast.common;
 
 /**
- * Created by tiberiugolaes on 08/11/2016.
+ * Created by tiberiugolaes on 09/11/2016.
  */
 
 public final class Dimensions {

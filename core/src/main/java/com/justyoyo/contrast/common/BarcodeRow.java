@@ -1,9 +1,13 @@
-package com.justyoyo.contrast.pdf417.encoder;
+package com.justyoyo.contrast.common;
+
+/**
+ * Created by tiberiugolaes on 09/11/2016.
+ */
 
 /**
  * Created by tiberiugolaes on 08/11/2016.
  */
-final class BarcodeRow {
+public final class BarcodeRow {
 
     private final byte[] row;
     //A tacker for position in the bar
@@ -41,17 +45,17 @@ final class BarcodeRow {
      * @param black A boolean which is true if the bar black false if it is white
      * @param width How many spots wide the bar is.
      */
-    void addBar(boolean black, int width) {
+    public void addBar(boolean black, int width) {
         for (int ii = 0; ii < width; ii++) {
             set(currentLocation++, black);
         }
     }
 
-  /*
-  byte[] getRow() {
-    return row;
-  }
-   */
+      /*
+      byte[] getRow() {
+        return row;
+      }
+       */
 
     /**
      * This function scales the row

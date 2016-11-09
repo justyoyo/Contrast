@@ -7,6 +7,7 @@ import com.justyoyo.contrast.EncodeHintType;
 import com.justyoyo.contrast.WriterException;
 import com.justyoyo.contrast.common.BitMatrix;
 import com.justyoyo.contrast.common.CharacterSetECI;
+import com.justyoyo.contrast.common.Compaction;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
@@ -174,7 +175,7 @@ public final class PDF417HighLevelEncoder {
      *                   or {@code null} for default / not applicable
      * @return the encoded message (the char values range from 0 to 928)
      */
-    public static String encodeHighLevel(String msg, WriterException.Compaction compaction, Charset encoding) throws WriterException {
+    public static String encodeHighLevel(String msg, Compaction compaction, Charset encoding) throws WriterException {
 
         //the codewords 0..928 are encoded as Unicode characters
         StringBuilder sb = new StringBuilder(msg.length());
@@ -193,14 +194,14 @@ public final class PDF417HighLevelEncoder {
         int textSubMode = SUBMODE_ALPHA;
 
         // User selected encoding mode
-        if (compaction == WriterException.Compaction.TEXT) {
+        if (compaction == Compaction.TEXT) {
             encodeText(msg, p, len, sb, textSubMode);
 
-        } else if (compaction == WriterException.Compaction.BYTE) {
+        } else if (compaction == Compaction.BYTE) {
             byte[] bytes = msg.getBytes(encoding);
             encodeBinary(bytes, p, bytes.length, BYTE_COMPACTION, sb);
 
-        } else if (compaction == WriterException.Compaction.NUMERIC) {
+        } else if (compaction == Compaction.NUMERIC) {
             sb.append((char) LATCH_TO_NUMERIC);
             encodeNumeric(msg, p, len, sb);
 

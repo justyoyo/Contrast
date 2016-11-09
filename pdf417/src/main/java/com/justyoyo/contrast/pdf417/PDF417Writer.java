@@ -5,7 +5,8 @@ import com.justyoyo.contrast.EncodeHintType;
 import com.justyoyo.contrast.Writer;
 import com.justyoyo.contrast.WriterException;
 import com.justyoyo.contrast.common.BitMatrix;
-import com.justyoyo.contrast.pdf417.encoder.PDF417;
+import com.justyoyo.contrast.common.Compaction;
+import com.justyoyo.contrast.common.Dimensions;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -45,10 +46,10 @@ public final class PDF417Writer implements Writer {
                 encoder.setCompact(Boolean.valueOf(hints.get(EncodeHintType.PDF417_COMPACT).toString()));
             }
             if (hints.containsKey(EncodeHintType.PDF417_COMPACTION)) {
-                encoder.setCompaction(WriterException.Compaction.valueOf(hints.get(EncodeHintType.PDF417_COMPACTION).toString()));
+                encoder.setCompaction(Compaction.valueOf(hints.get(EncodeHintType.PDF417_COMPACTION).toString()));
             }
             if (hints.containsKey(EncodeHintType.PDF417_DIMENSIONS)) {
-                WriterException.Dimensions dimensions = (WriterException.Dimensions) hints.get(EncodeHintType.PDF417_DIMENSIONS);
+                Dimensions dimensions = (Dimensions) hints.get(EncodeHintType.PDF417_DIMENSIONS);
                 encoder.setDimensions(dimensions.getMaxCols(),
                         dimensions.getMinCols(),
                         dimensions.getMaxRows(),

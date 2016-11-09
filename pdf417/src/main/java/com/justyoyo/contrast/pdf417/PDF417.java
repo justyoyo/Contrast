@@ -1,12 +1,13 @@
-package com.justyoyo.contrast.pdf417.encoder;
+package com.justyoyo.contrast.pdf417;
 
 /**
  * Created by tiberiugolaes on 08/11/2016.
  */
 
 import com.justyoyo.contrast.WriterException;
+import com.justyoyo.contrast.common.BarcodeMatrix;
 import com.justyoyo.contrast.common.BarcodeRow;
-import com.justyoyo.contrast.pdf417.PDF417HighLevelEncoder;
+import com.justyoyo.contrast.common.Compaction;
 
 import java.nio.charset.Charset;
 
@@ -498,9 +499,9 @@ public final class PDF417 {
     private static final float DEFAULT_MODULE_WIDTH = 0.357f; //1px in mm
     private static final float HEIGHT = 2.0f; //mm
 
-    private WriterException.BarcodeMatrix barcodeMatrix;
+    private BarcodeMatrix barcodeMatrix;
     private boolean compact;
-    private WriterException.Compaction compaction;
+    private Compaction compaction;
     private Charset encoding;
     private int minCols;
     private int maxCols;
@@ -513,7 +514,7 @@ public final class PDF417 {
 
     public PDF417(boolean compact) {
         this.compact = compact;
-        compaction = WriterException.Compaction.AUTO;
+        compaction = Compaction.AUTO;
         encoding = null; // Use default
         minCols = 2;
         maxCols = 30;
@@ -521,7 +522,7 @@ public final class PDF417 {
         minRows = 2;
     }
 
-    public WriterException.BarcodeMatrix getBarcodeMatrix() {
+    public BarcodeMatrix getBarcodeMatrix() {
         return barcodeMatrix;
     }
 
@@ -582,7 +583,7 @@ public final class PDF417 {
                                 int c,
                                 int r,
                                 int errorCorrectionLevel,
-                                WriterException.BarcodeMatrix logic) {
+                                BarcodeMatrix logic) {
 
         int idx = 0;
         for (int y = 0; y < r; y++) {
@@ -624,9 +625,9 @@ public final class PDF417 {
     }
 
     /**
-     * @param msg message to encode
+     * @param msg                  message to encode
      * @param errorCorrectionLevel PDF417 error correction level to use
-     * @throws WriterException if the contents cannot be encoded in this format
+     * @throws if the contents cannot be encoded in this format
      */
     public void generateBarcodeLogic(String msg, int errorCorrectionLevel) throws WriterException {
 
@@ -645,7 +646,8 @@ public final class PDF417 {
         //2. step: construct data codewords
         if (sourceCodeWords + errorCorrectionCodeWords + 1 > 929) { // +1 for symbol length CW
             throw new WriterException(
-                    "Encoded message contains too many code words, message too big (" + msg.length() + " bytes)");
+                    "Encoded message contains too many code words, message too big (" + msg.length() + " bytes)")
+                    ;
         }
         int n = sourceCodeWords + pad + 1;
         StringBuilder sb = new StringBuilder(n);
@@ -660,7 +662,7 @@ public final class PDF417 {
         String ec = PDF417ErrorCorrection.generateErrorCorrection(dataCodewords, errorCorrectionLevel);
 
         //4. step: low-level encoding
-        barcodeMatrix = new WriterException.BarcodeMatrix(rows, cols);
+        barcodeMatrix = new BarcodeMatrix(rows, cols);
         encodeLowLevel(dataCodewords + ec, cols, rows, errorCorrectionLevel, barcodeMatrix);
     }
 
@@ -668,7 +670,7 @@ public final class PDF417 {
      * Determine optimal nr of columns and rows for the specified number of
      * codewords.
      *
-     * @param sourceCodeWords number of code words
+     * @param sourceCodeWords          number of code words
      * @param errorCorrectionCodeWords number of error correction code words
      * @return dimension object containing cols as width and rows as height
      */
@@ -696,7 +698,7 @@ public final class PDF417 {
             }
 
             ratio = newRatio;
-            dimension = new int[] {cols, rows};
+            dimension = new int[]{cols, rows};
         }
 
         // Handle case when min values were larger than necessary
@@ -732,7 +734,7 @@ public final class PDF417 {
     /**
      * @param compaction compaction mode to use
      */
-    public void setCompaction(WriterException.Compaction compaction) {
+    public void setCompaction(Compaction compaction) {
         this.compaction = compaction;
     }
 

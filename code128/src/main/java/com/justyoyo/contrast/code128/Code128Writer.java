@@ -2,6 +2,7 @@ package com.justyoyo.contrast.code128;
 
 import com.justyoyo.contrast.BarcodeFormat;
 import com.justyoyo.contrast.EncodeHintType;
+import com.justyoyo.contrast.OneDimensionalCodeWriter;
 import com.justyoyo.contrast.WriterException;
 import com.justyoyo.contrast.common.BitMatrix;
 
@@ -10,8 +11,9 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * Created by tiberiugolaes on 08/11/2016.
+ * Created by tiberiugolaes on 09/11/2016.
  */
+
 
 public final class Code128Writer extends OneDimensionalCodeWriter {
 

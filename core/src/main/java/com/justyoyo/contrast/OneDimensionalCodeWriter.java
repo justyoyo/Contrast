@@ -1,4 +1,4 @@
-package com.justyoyo.contrast.code128;
+package com.justyoyo.contrast;
 
 import com.justyoyo.contrast.BarcodeFormat;
 import com.justyoyo.contrast.EncodeHintType;

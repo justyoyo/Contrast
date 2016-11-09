@@ -11,7 +11,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Created by tiberiugolaes on 08/11/2016.
+ * Created by tiberiugolaes on 09/11/2016.
  */
 
 public final class Code128Encoder {
