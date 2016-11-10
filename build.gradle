@@ -2,6 +2,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
@@ -17,9 +18,9 @@ allprojects {
 
 subprojects {
     group = 'com.justyoyo.contrast'
-    version = '0.1.2-SNAPSHOT'
+    version = '0.2.0-SNAPSHOT'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.14.1'
 }

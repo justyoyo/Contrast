@@ -1,9 +1,8 @@
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 /**
  * We lazy init the assembleRelease task as its added by the android plugin
  */
-
 task androidReleaseJar(type: Jar, dependsOn: "assembleRelease") {
     from "$buildDir/classes/release/"
 }
@@ -14,29 +13,49 @@ task androidJavadocs(type: Javadoc) {
 
 task androidJavadocsJar(type: Jar) {
     classifier = 'javadoc'
-    basename = artifact_id
+    //basename = artifact_id
     from androidJavadocs.destinationDir
 }
 
 task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    basename = artifact_id
-    from android.sourceSets.main.java.sourceFiles
+    from android.sourceSets.main.java.srcDirs
+    classifier "source"
 }
 
-uploadArchives {
-    configuration = configurations.archives
-    repositories.mavenDeployer {
-        snapshotRepository(url: sonatypePrivateUrl) {
-            authentication(userName: sonatypePrivateUsername,
-                    password: sonatypePrivatePassword)
+publishing {
+    repositories {
+        if(project.has("sonatypePrivateUrl")){
+            maven {
+                credentials {
+                    username project.getProperty("sonatypePrivateUsername")
+                    password project.getProperty("sonatypePrivatePassword")
+                }
+                url project.getProperty("sonatypePrivateUrl")
+            }
         }
-        pom.artifactId = "contrast-${project.name}"
     }
-}
+    publications {
+        maven(MavenPublication) {
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+            artifact androidJavadocsJar
+            artifact androidSourcesJar
 
-artifacts {
-    archives androidReleaseJar
-    archives androidJavadocsJar
-    archives androidSourcesJar
+            artifactId "contrast-${project.name}"
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    if (it.group != null && it.name != null) {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                        dependencyNode.appendNode('scope', 'runtime')
+                    }
+                }
+            }
+        }
+
+    }
 }
